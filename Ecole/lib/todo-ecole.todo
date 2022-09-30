@@ -1,0 +1,72 @@
+base:
+    table:
+        ✔ Region @started(22-09-29 09:06) @done(22-09-29 09:07) @lasted(1m15s)
+            ☐ id
+            ☐ nom
+        ✔ Ecole @started(22-09-29 09:07) @done(22-09-29 09:09) @lasted(2m43s)
+            ☐ id
+            ☐ nom
+            ☐ idRegion FK(Region)
+        ✔ Genre @started(22-09-29 09:09) @done(22-09-29 09:10) @lasted(1m21s)
+            ☐ id
+            ☐ nom
+        ✔ Etudiant @started(22-09-29 09:10) @done(22-09-29 09:12) @lasted(2m30s)
+            ☐ id
+            ☐ nom
+            ☐ prenom
+            ☐ idGenre FK(genre)
+            ☐ idEcole FK(Ecole)
+            ☐ dateNaissance
+        ✔ Matiere @started(22-09-29 09:12) @done(22-09-29 09:13) @lasted(1m12s)
+            ☐ id
+            ☐ nom
+        ✔ Note @done(22-09-29 09:17)
+            ☐ id
+            ☐ idEtudiant FK(etudiant)
+            ☐ idMatiere FK(Matiere)
+            ☐ val
+            ☐ unique(idEtudiant, idMatiere)
+
+    v_Region_etudiants:
+        ✔ etudiant x ecole x Region; group by id Region; count(idEtudiant); columns: idRegion, etudiant_count @started(22-09-29 09:17) @done(22-09-29 09:22) @lasted(5m57s)
+
+back end:
+    model:
+        ✔ Genre (classe) @started(22-09-29 09:23) @done(22-09-29 09:25) @lasted(2m18s)
+            ☐ id (field)
+            ☐ nom
+        ✔ Region @started(22-09-29 09:25) @done(22-09-29 09:25) @lasted(36s)
+            ✔ id @done(22-09-29 09:25)
+            ✔ nom @done(22-09-29 09:25)
+            ☐ getNbEtudiant() (method)
+        ✔ Matiere @started(22-09-29 09:25) @done(22-09-29 09:26) @lasted(1m46s)
+            ☐ id
+            ☐ nom
+        ✔ Ecole @started(22-09-29 09:26) @done(22-09-29 09:27) @lasted(1m44s)
+            ☐ id
+            ☐ nom
+            ☐ Region
+    DAO:
+        ✔ GlobalDAO @started(22-09-29 09:27) @done(22-09-29 09:41) @lasted(14m46s)
+            ✔ void execute(sql) @done(22-09-29 09:39)
+            ✔ ResultSet fetch(sql) @started(22-09-29 09:40) @done(22-09-29 09:41) @lasted(1m45s)
+        ✔ MatiereDAO @started(22-09-29 09:41) @done(22-09-29 09:51) @lasted(10m45s)
+            ☐ fetchAll()
+        ✔ genreDao @done(22-09-29 09:56)
+            ☐ Genre[] fetchAll()
+        ☐ EtudiantDAO @started(22-09-29 09:56)
+            ✔ generateID() @started(22-09-29 09:58) @done(22-09-29 10:14) @lasted(16m7s)
+            ☐ void insert(id, nom, prenom, idGenre, idEcole, dateNaissance)
+            ✔ void insertGrade (idEtudiant, idMatiere[], grades[]) @done(22-09-29 10:24)
+
+    Servlet:
+        ☐ EtudiantCrud
+            ☐ doPost()
+                a faire: insert etudiant
+            ☐ doget
+                data to render:
+                    ☐ genre
+                    ☐ matiere
+                    ☐ Ecole
+                render template: 
+                    ☐ etudiantForm.jsp
